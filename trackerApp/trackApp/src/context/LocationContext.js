@@ -25,6 +25,8 @@ const locationReducer = (state, action) => {
 
         case 'change_name':
             return {...state, name: action.payload}
+        case 'reset':
+            return {...state, name: "", locations: []}
     
         default: 
              return state
@@ -62,13 +64,18 @@ export const LocationProvider = (props) => {
         dispatch({type: "change_name", payload: name})
     }
 
+    const reset = (name) => {
+        dispatch({type: "reset"})
+    }
+
 
     
     const boundActions = {
         startRecording,
         stopRecording,
         addLocation,
-        changeName
+        changeName,
+        reset
     }
     
     return (

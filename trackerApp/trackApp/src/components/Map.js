@@ -15,7 +15,7 @@ const Map = () => {
     }
  
     return(
-        <View>
+        <View style={{borderWidth: 1, borderColor: "green"}}>
             <MapView 
             initialRegion={{
                 ...currentLocation.coords,
@@ -47,7 +47,7 @@ const Map = () => {
 
 const styles = StyleSheet.create({
     map: {
-       height: 300
+       height: 350
     }
 })
 

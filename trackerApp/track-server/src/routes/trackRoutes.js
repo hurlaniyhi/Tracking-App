@@ -34,9 +34,10 @@ router.post('/tracks', async (req, res)=>{
         userId: req.user._id
     })
     await track.save()
+    console.log("saved")
     res.send(track)
   } catch (err){
-      return res.send("Provide appropriate i nformation")
+      return res.send("Provide appropriate information")
   }
 })
 

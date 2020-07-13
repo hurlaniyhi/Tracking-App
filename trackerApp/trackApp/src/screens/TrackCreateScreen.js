@@ -8,6 +8,7 @@ import {requestPermissionsAsync, watchPositionAsync, Accuracy} from 'expo-locati
 import LocationContext from '../context/LocationContext'
 import TrackForm from '../components/TrackForm'
 import { startAsync } from 'expo/build/AR';
+import {FontAwesome} from '@expo/vector-icons'
 //import useLocation from '../hooks/useLocation'
 
 
@@ -76,7 +77,7 @@ const TrackCreateScreen = ({isFocused}) => {
   return (
     <SafeAreaView forceInset={{top: "always"}}>
       <View>
-        <Text h3 style={styles.text}>Create Track</Text>
+        <Text h4 style={styles.text}>Create Track</Text>
         <Map />
         {err? <Text>Please enable locaton services</Text> : null}
       </View>
@@ -85,10 +86,18 @@ const TrackCreateScreen = ({isFocused}) => {
   )
 };
 
+TrackCreateScreen.navigationOptions = {
+  title: "Add Track",
+  tabBarIcon: ({tintColor}) => <FontAwesome color={tintColor} name="plus" size={20} />
+}
+
 const styles = StyleSheet.create({
   text: {
     fontSize: 30,
-    textAlign: "center"
+    textAlign: "center",
+    paddingBottom: 35,
+    paddingTop: 15
+
   }
 });
 

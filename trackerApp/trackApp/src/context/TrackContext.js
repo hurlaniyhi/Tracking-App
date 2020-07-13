@@ -11,9 +11,12 @@ const TrackContext = React.createContext()
 const trackReducer = (state, action) => {
     
     switch (action.type){
-      
+        case "fetch_tracks":
+            return action.payload  
+            // we dont need to fetch from our previous state, since the response from backend is the source of truth
+            // we can just get all tracks(action.payload) which will now stand as our new state
         default: 
-             return state
+            return state
     }
 }
 
@@ -27,14 +30,17 @@ export const TrackProvider = (props) => {
     
 
    
-    const fetchTracks = () => {
-        
-        dispatch({type: "fetch_tracks"})
+    const fetchTracks = async () => {
+        const response = await trackerApi.get("/tracks")
+        dispatch({type: 'fetch_tracks', payload: response.data})
     }
 
-    const createTrack = () => {
+    const createTrack = async (name, locations) => {
+       
+        await trackerApi.post('/tracks', {name, locations})
         
-        dispatch({type: "create_track"})
+      
+       
     }
 
     

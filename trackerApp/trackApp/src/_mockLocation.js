@@ -67,8 +67,8 @@ import * as Location from 'expo-location';
                 accuracy: 5,
                 altitudeAccuracy: 5,
                 altitude: 5,
-                longitude: 3.3834651 + increment * tenMetersWithDegrees,
-                latitude: 6.4824924 + increment * tenMetersWithDegrees,
+                longitude: 3.3831444 + increment * tenMetersWithDegrees,
+                latitude: 6.4822593 + increment * tenMetersWithDegrees,
             }
         }
     }

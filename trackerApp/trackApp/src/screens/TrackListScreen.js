@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import { Text, StyleSheet, View, Button, FlatList, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, View, Button, FlatList, TouchableOpacity, ScrollView, YellowBox } from "react-native";
 import {Text as Title} from 'react-native-elements'
 import {ListItem} from 'react-native-elements'  // with chevron props  make our list items to be display in a good way with icon(>) beside each item 
 import {SafeAreaView} from 'react-navigation'
@@ -10,13 +10,19 @@ const TrackListScreen = (props) => {
 
   const{state, fetchTracks} = useContext(TrackContext)
 
+  YellowBox.ignoreWarnings([
+    'VirtualizedLists should never be nested', // TODO: Remove when fixed
+  ])
+
   // console.log(state)
 
   return (
     <SafeAreaView forceInset={{top: "always"}}>
+      <ScrollView>
       <NavigationEvents onWillFocus={fetchTracks} />
+      
       <View>
-        {/* <Title h4 style={styles.text}>Tracks</Title> */}
+        
        
         <FlatList
           data={state}
@@ -25,13 +31,14 @@ const TrackListScreen = (props) => {
             return (
               <TouchableOpacity onPress={() => 
               props.navigation.navigate('TrackDetail',{_id: item._id})}>
-                <ListItem chevron={true} title={item.name} /> 
+                <ListItem  chevron={{color: "#9263CC"}} title={item.name} /> 
               </TouchableOpacity>
             )
           }}
         />
        
       </View>
+      </ScrollView>
       </SafeAreaView>
   )
 };
@@ -45,9 +52,13 @@ TrackListScreen.navigationOptions = () => {
     headerTitleStyle: {
       textAlign: "center",
       fontSize: 25,
-      fontWeight: "bold"
+      fontWeight: "bold",
+      color: "white"
     },
-    title: "Tracks"
+    title: "Tracks",
+    headerStyle:{ 
+    backgroundColor: "#9263CC"
+    }
   }
 }
 

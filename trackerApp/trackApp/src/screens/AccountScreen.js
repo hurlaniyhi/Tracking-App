@@ -1,10 +1,14 @@
 import React, {useContext} from "react";
-import { Text, StyleSheet, View } from "react-native";
+import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import { Button, Text as Title } from "react-native-elements";
 import AuthContext from "../context/AuthContext"
 import Spacer from "../components/Spacer"
 import {SafeAreaView} from 'react-navigation'
 import {FontAwesome} from '@expo/vector-icons'
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen'
 
 const AccountScreen = () => {
 
@@ -14,7 +18,10 @@ const AccountScreen = () => {
     <SafeAreaView forceInset={{top: "always"}}>
       <View style={styles.container}>
         <Title h4 style={styles.text}>My Account</Title>
-        <Button title="Sign Out" onPress={signout} />
+        
+        <TouchableOpacity  style={styles.button} onPress={signout}>
+          <Text style={{fontSize: wp("5%"), color: "white"}}>Sign Out</Text>
+          </TouchableOpacity>
       </View>
     </SafeAreaView>
   )
@@ -22,6 +29,7 @@ const AccountScreen = () => {
 
 AccountScreen.navigationOptions = {
   title: "Account",
+  tabBarOptions: { activeTintColor:'#9263CC'},
   tabBarIcon: ({tintColor})=> <FontAwesome color={tintColor}  name="gear" size={20} />,
   
 }
@@ -29,16 +37,24 @@ AccountScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 30,
+    fontSize: wp("6%"),
     textAlign: "center",
-    paddingBottom: 40,
-    paddingTop: 15
+    paddingBottom: hp("6%"),
+    paddingTop: wp("4%")
   },
   container:{
     // flex: 1,
     // // marginTop: 80,
-    marginHorizontal: 15,
-  }
+    marginHorizontal: wp("10%"),
+  },
+  button:{
+    justifyContent: "center", 
+    alignItems: "center",
+    height: hp("7%"), 
+    backgroundColor: "#9263CC",
+    borderRadius: 10,
+    marginBottom: hp("2%")
+}
 });
 
 export default AccountScreen;

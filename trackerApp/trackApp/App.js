@@ -24,6 +24,7 @@ const trackList = createStackNavigator({   // we did this instead of using what 
 
   trackList.navigationOptions = {
     title: 'Tracks',
+    tabBarOptions: { activeTintColor:'#9263CC'},
     tabBarIcon: ({tintColor}) => <FontAwesome color={tintColor} name="th-list" size={20} />
   }
 
@@ -31,15 +32,12 @@ const trackList = createStackNavigator({   // we did this instead of using what 
 const switchNavigator = createSwitchNavigator({
   autoSignin: ResolveAuthScreen,
   loginFlow: createStackNavigator({
-    Signup: SignupScreen,
-    Signin: SigninScreen
+    Signin: SigninScreen,
+    Signup: SignupScreen
+    
   }),
   mainFlow: createBottomTabNavigator({
      trackList: trackList,
-    // trackList: createStackNavigator({
-    //   TrackList: TrackListScreen,
-    //   TrackDetail: TrackDetailScreen
-    // }),
     createTrack: TrackCreateScreen,
     Account: AccountScreen
   })

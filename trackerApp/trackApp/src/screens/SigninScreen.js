@@ -4,6 +4,11 @@ import AuthContext from "../context/AuthContext"
 import AuthForm from "../components/AuthForm"
 import NavLink from "../components/NavLink"
 import {NavigationEvents} from 'react-navigation'
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen'
+
 
 const SigninScreen = () => {
 
@@ -15,9 +20,10 @@ const SigninScreen = () => {
     <View style={styles.container}>
       <NavigationEvents onWillFocus={clearErrorMessage}/>
       <AuthForm 
-        headerText="Sign In for Tracker"
+        headerText="Sign In"
         errorMessage={state.errorMessage}
         buttonText="Sign In"
+        info="Login to easily track your path as you journey"
         onSubmit={signin}
       />
       <NavLink 
@@ -40,7 +46,7 @@ const styles = StyleSheet.create({
   container:{
     flex: 1,
     justifyContent: "center",
-    marginBottom: 200
+    marginBottom: hp("20%")
   }
 })
 

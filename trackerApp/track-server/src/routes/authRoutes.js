@@ -9,11 +9,16 @@ const router = express.Router()
 
 router.post("/signup", async(req,res) => {
     console.log(req.body)
+    req.body.email = req.body.email.replace(/ /g, "")
     
-    const {email, password} = req.body  
+    const {email, password} = req.body
+    if(!email || !password){
+        res.send("provide email and password")
+    }  
     // we destructure so as to have access to the email and password sent during request without having to do
     // req.body.email or req.body.password
     try{
+    
     const user = new User({
         email: email,
         password: password
@@ -30,19 +35,19 @@ router.post("/signup", async(req,res) => {
     res.send({token: token})
 
      } catch (err){
-        //  if(!email || !password){
-        //      return res.send("please enter email / password")
-        //  }
-        //  else{
-        return res.status(422).send("user already exist")  // the return will simply not allow execution of anycode after this line
+       
+        return res.send("user already exist")  // the return will simply not allow execution of anycode after this line
     //}
 }
 })
 
 router.post('/signin', async(req, res) => {
+    req.body.email = req.body.email.replace(/ /g, "")
     const {email, password} = req.body
     console.log(req.body)
-
+    
+    console.log(req.body.email)
+    
     if (!email || !password){ 
       return  res.send("You must provide email and password")
     }
@@ -64,7 +69,7 @@ router.post('/signin', async(req, res) => {
            console.log("welcome to your account")
         }
         catch(err){
-            return res.status(422).send("Invalid password or email")
+            return res.send("Invalid password or email")
         }
     }
 })

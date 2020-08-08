@@ -21,6 +21,19 @@ const authReducer = (state, action) => {
         case 'clear_errorMessage':
             return {...state, errorMessage: ""}
 
+        case 'load':
+            return {...state, load: "loading"}
+
+        case 'clear_load':
+            return {...state, load: "", send: "", track: ""}
+    
+        
+        case 'send':
+            return {...state, send: "loading"}
+
+        case 'track':
+            return {...state, track: "loading"}
+
         case 'signout':
             return{token: null, errorMessage: ""}
 
@@ -35,40 +48,65 @@ const authReducer = (state, action) => {
 export const AuthProvider = (props) => {  
     
     
-    const [state, dispatch] = useReducer(authReducer, {token: null, errorMessage: ""})
+    const [state, dispatch] = useReducer(authReducer, {token: null, errorMessage: "", load: "", send: "", track: ""})
     
 
     const signup = async(email, password) => {
+        dispatch({type: 'load'})
         
         try {
             const response = await trackerApi.post('/signup', {email, password})
-           
+           if (response.data.token){
            await AsyncStorage.setItem('token', response.data.token)
            dispatch({type: 'signin', payload: response.data.token})
+           dispatch({type: 'clear_load'})
            navigate("mainFlow")
+           }
+           else{
+            dispatch({type: 'clear_load'})
+            dispatch({type: 'add_error', payload: response.data})
+            
+           }
            // we can easily pass props as parameter from where we call this function
            // and include props as third parameter in this function 
            // we then can use props.navigation.navigate("mainFlow") instead of this navigation("mainFlow")
 
         } catch (err){
-
-            dispatch({type: 'add_error', payload: "Something went wrong"})
+            dispatch({type: 'clear_load'})
+            alert("No network connection")
+           
         }
         
     }
 
+    const saveload = async ()=>{
+        dispatch({type: 'track'})
+    }
+   const cancelload = async ()=>{
+        dispatch({type: 'clear_load'})
+    }
+
     const signin = async(email, password) => {
+  
+       await dispatch({type: 'send'})
 
         try {
             const response = await trackerApi.post('/signin', {email, password})
-           
+           if(response.data.token){
            await AsyncStorage.setItem('token', response.data.token)
            dispatch({type: 'signin', payload: response.data.token})
+           dispatch({type: 'clear_load'})
            navigate("mainFlow")
+           }
+           else{
+            dispatch({type: 'clear_load'})
+            dispatch({type: 'add_error', payload: response.data})
+           
+           }
           
         } catch (err){
-
-            dispatch({type: 'add_error', payload: "Something went wrong with sign in"})
+            dispatch({type: 'clear_load'})
+           alert("No network connection")
         }
     }
 
@@ -83,7 +121,7 @@ export const AuthProvider = (props) => {
         navigate('TrackList')
         }
         else{
-            navigate('Signup')
+            navigate('Signin')
         }
     }
 
@@ -101,7 +139,9 @@ export const AuthProvider = (props) => {
         signin,
         clearErrorMessage,
         autoSignin,
-        signout
+        signout, 
+        saveload,
+        cancelload
     }
     
     return (

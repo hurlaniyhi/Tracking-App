@@ -6,6 +6,11 @@ import AuthContext from "../context/AuthContext"
 import AuthForm from "../components/AuthForm"
 import NavLink from "../components/NavLink"
 import {NavigationEvents} from 'react-navigation'
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen'
+
 
 const SignupScreen = (props) => {
 
@@ -17,9 +22,10 @@ const SignupScreen = (props) => {
     <View style={styles.container}>
       <NavigationEvents onWillFocus={clearErrorMessage}/>
       <AuthForm 
-        headerText="Sign Up for Tracker"
+        headerText="Sign Up"
         errorMessage={state.errorMessage}
         buttonText="Sign Up"
+        info="Start tracking your path as you journey"
         onSubmit={signup}
       />
       <NavLink 
@@ -41,7 +47,7 @@ const styles = StyleSheet.create({
   container:{
     flex: 1,
     justifyContent: "center",
-    marginBottom: 200
+    marginBottom: hp("20%")
   }
 })
 

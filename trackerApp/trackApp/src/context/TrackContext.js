@@ -15,6 +15,13 @@ const trackReducer = (state, action) => {
             return action.payload  
             // we dont need to fetch from our previous state, since the response from backend is the source of truth
             // we can just get all tracks(action.payload) which will now stand as our new state
+        // case 'clear_load':
+        //     return {...state, load: "", send: ""}
+        
+            
+        // case 'send':
+        //     return {...state, send: "loading"}
+
         default: 
             return state
     }
@@ -31,22 +38,40 @@ export const TrackProvider = (props) => {
 
    
     const fetchTracks = async () => {
+        console.log("Hi there")
         const response = await trackerApi.get("/tracks")
         dispatch({type: 'fetch_tracks', payload: response.data})
     }
 
     const createTrack = async (name, locations) => {
-       
-        await trackerApi.post('/tracks', {name, locations})
         
+        await dispatch({type: 'send'})
+      try{ 
+        await trackerApi.post('/tracks', {name, locations})
+      }
+      catch(err){
+          alert("No network connection")
+      }
       
-       
+    }
+
+
+    const deleteTrack = async (_id) => {
+        console.log("Hi there")
+        try{
+        const response = await trackerApi.post("/deleteTrack", {id: _id})
+        navigate("TrackList")
+        }
+        catch(err){
+            alert("No network connection")
+        }
     }
 
     
     const boundActions = {
         fetchTracks,
-        createTrack
+        createTrack,
+        deleteTrack
     }
     
     return (

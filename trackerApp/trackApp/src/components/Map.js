@@ -2,6 +2,13 @@ import React, {useContext} from 'react'
 import {Text, StyleSheet, View, ActivityIndicator} from 'react-native'
 import MapView, {Polyline, Circle} from 'react-native-maps'
 import LocationContext from '../context/LocationContext'
+import {
+    heightPercentageToDP as hp,
+    widthPercentageToDP as wp,
+  } from 'react-native-responsive-screen'
+
+
+  
 
 const Map = () => {
 
@@ -11,7 +18,7 @@ const Map = () => {
     // if the current location is still null we will rather show a spinner (loading icon). hence we use the below condition
 
     if(!currentLocation){
-        return <ActivityIndicator size="large" style={{marginTop: 200}} />
+        return <ActivityIndicator size="large" style={{marginTop: hp("20%")}} />
     }
  
     return(
@@ -33,7 +40,7 @@ const Map = () => {
 
             }}
             >
-                <Polyline coordinates={locations.map(loc => loc.coords)} />
+                <Polyline coordinates={locations.map(loc => loc.coords)} strokeWidth={3} strokeColor="green"/>
                 <Circle
                 center={currentLocation.coords}
                 radius={30}
@@ -47,7 +54,7 @@ const Map = () => {
 
 const styles = StyleSheet.create({
     map: {
-       height: 350
+       height: hp("42%")
     }
 })
 

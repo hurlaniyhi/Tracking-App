@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "rn-starter",
-    "slug": "rn-starter",
+    "name": "Path Tracker",
+    "slug": "path-tracker",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
@@ -13,7 +13,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/frontPage.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -23,8 +23,16 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
+    
+    "android": {
+      "package": "com.lingonsoft.Path_Tracker",
+      "versionCode": 1,
+      "icon": "./nativeIcon.png",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBk5kpep_ec-TvbGZaaXMYSR5m5Pb0YcQI"
+        }
+      }
     }
   }
 }

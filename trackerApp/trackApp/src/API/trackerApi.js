@@ -3,7 +3,7 @@ import {AsyncStorage} from 'react-native'
 
 
 const instance = axios.create({ // this is our config
-    baseURL: "http://07f66d3d1ff9.ngrok.io"   
+    baseURL: " https://tracker-app-backend.herokuapp.com"   
 })
 
 
